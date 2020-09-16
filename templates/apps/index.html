@@ -48,6 +48,7 @@
             <p>{{ rate.case }}</p>
             <p>{{ rate.check }}</p>
             <p>{{ rate.total_sum }}</p>
+            <p>{{ rate.created_date|date:"d.m.y, H:i" }}</p>
         {% endfor %}
     </div>
 </div>

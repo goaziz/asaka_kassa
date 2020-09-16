@@ -29,6 +29,7 @@ class Exchange(models.Model):
     case = models.ForeignKey(Case, on_delete=models.DO_NOTHING)
     check = models.CharField(max_length=250, blank=True, null=True)
     total_sum = models.DecimalField(null=True, blank=True, max_digits=200, decimal_places=2)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.id)
