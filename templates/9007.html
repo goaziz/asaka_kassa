@@ -1,0 +1,142 @@
+﻿<html>
+  <head>
+  	<title>ASAKA Banki</title>	
+  </head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="js/script1.js"></script>
+  <script>
+    function setCookie(name,value) {
+		  window.sessionStorage.setItem(name, value);  
+		}
+		function getCookie(name) {
+			return window.sessionStorage.getItem(name);
+		}
+		function eraseCookie(name) {   
+		    document.cookie = name+'=; Max-Age=-99999999;';  
+		}
+    function summByMask(summ) {
+		  var val = summ.replace(/ /g, "");
+		  val = val.replace(",", ".");
+		  var res = "", scale = "";
+		  var i = val.indexOf('.');
+		  if (i != -1) {
+		    scale = val.substr(i);
+		    val = val.substr(0, i);
+		  }
+		  var n = val.length;
+		  for (i = 1; i <= n; i++) {
+		    res = val.charAt(n - i) + res;
+		    if (i % 3 == 0 && i < n)
+		      res = " " + res;
+		  }
+		  return res + scale;
+		}
+  	function get(id) {
+  		return document.getElementById(id);
+  	}
+  	function getDate(){
+  		var d = new Date();
+			var str = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+			return str;
+  	}
+  	function getKurs(){
+  		return getCookie('xbkurs');
+  	}
+  	function setLoad(){
+  		var kurs = getKurs();
+  		if(kurs == undefined || kurs == null || kurs == 'null' || kurs == 0)
+  			setKurs();
+  		get('divTime').innerHTML = getDate();
+		  get('kurs').innerHTML = getKurs() + ' UZS';
+		  if(window.sessionStorage.getItem('filialName') && window.sessionStorage.getItem('punktNumber')){
+		  $("#filial__name").html(window.sessionStorage.getItem('filialName'));
+		  $("#punkt__number").html(window.sessionStorage.getItem('punktNumber'));
+		  }
+  	}
+  	function setSum(dom) {
+  		var kurs = getKurs();
+		  get('sumhidden').innerHTML = summByMask('' + Math.round(parseFloat(dom.value) / kurs * 100) / 100);
+		  get('sumnumber').innerHTML = summByMask('' + Math.round(parseFloat(dom.value) / kurs * 100) / 100);
+  	}
+  	function setKurs(){
+  		var kurs = prompt('Kursni kiriting: ');
+  		try {
+  			setCookie('xbkurs', kurs);
+	  		setLoad();
+	  		setSum(get('dollar'));
+	  	} catch(e) {
+	  		alert("������ ������� ����� ��������");
+	  	}
+	  }
+	  function getFilialName(){
+		var name = prompt('Filial nomini kiriting: ');
+		try {
+  			setCookie('filialName', name);
+	  		setFilialName();
+	  	} catch(e) {
+	  		alert("Xatolik yuz berdi!!!");
+	  	}
+	  }
+	  function setFilialName(){
+		$("#filial__name").html(window.sessionStorage.getItem('filialName'));
+	  }
+	  function getPunktName(){
+		var punkt = prompt('Punkt raqamini kiriting: ');
+		try {
+  			setCookie('punktNumber', punkt);
+	  		setPunktName();
+	  	} catch(e) {
+	  		alert("Xatolik yuz berdi!!!");
+	  	}
+	  }
+	  function setPunktName(){
+		$("#punkt__number").html(window.sessionStorage.getItem('punktNumber'));
+	  }
+  </script>
+  <style>
+	  @media print
+		{ 
+			.noBorder {border:0}
+		  .noPrint{display: none !important;}
+		}
+  </style>
+	<body onLoad="setLoad()">
+		<div style="width:300px; text-align:center">
+	  	<img src="ASAKA.jpg" style="width:100px; height:100px; vertical-align:middle; margin:5px;">
+	  	<span style="font-size:25px; font-weight:bold">ASAKA&nbsp;&nbsp;&nbsp;BANK</span>
+	  	<div style="margin:10px 0"  onclick="getFilialName()">AT "ASAKA BANK" <span id="filial__name" style="text-transform: uppercase;">AVTOTRANSPORT</span> FILIALI</div>
+	  
+	  	<div style="text-align:right"><td><select name="statement_type" id="statement_type" class="text_s" onchange="access();">
+		<option value="1"> 1 nusxa<option value="2"> 2 nusxa</select></td>
+		<select name="forma" onchange="location = this.value;">
+		<option value="9007.html">09007-shakl</option>
+ 		<option value="index.html">09002-shakl</option>
+ 
+		</select>
+		</div>
+
+	  	<div style="text-align:right" id="divTime"></div>
+	  	
+	  	<div style="text-align:left">
+			<div style="float:left" onclick="getPunktName()">Punkt: <span id="punkt__number">14006018</span></div>
+	  		<div style="float:right">Chek: <input class="noBorder"  style="text-align:center" size="10"/></div>
+	  		<div style="clear:both"></div>
+	  	</div>
+	  	<div style="text-align:left; margin:5px 0">Almashtirdi: <input class="noBorder" id="dollar" onkeyup="setSum(this)"style="text-align:center" size="10"/>   <td><select name="statement_type" id="statement_type" class="text_s" onchange="access();">
+		<option value="1">UZS</select></td></div>
+	  	<div style="text-align:left; margin:5px 0">Kurs: <span id="kurs" onClick="setKurs(this)"></span></div>
+		  <div style="text-align:left; margin:5px 0">Berildi:<span id="sumnumber"></span> <select name="statement_type noBorder" id="statement_type" class="text_s" onchange="access();">		
+			<option value="2"> AQSH dollari<option value="3"> Yevro</select> <br> <span id="eqSum"></span> 
+			<input type="hidden" id="sumhidden">  <td></td></div>
+		<div style="text-align:left; margin:5px 0">Mijoz F.I.O: <input class="text noBorder" id="text" onblur="text"style="text-align:center" size="25"/><td>
+		<div style="float:right"></div>
+		<div style="text-align:left; margin:5px 0">F.I.O kassir: <input class="text noBorder" id="text" onblur="text"style="text-align:center" size="25"/><td>
+		<div style="float:right"></div>
+		<div style="margin-top:13px">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
+	  	<div style="">Mijoz imzosi</div>
+		<div style="margin-top:20px">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
+	  	<div style="">Ayirboshlash shaxobchasi hodimlarining imzosi</div>
+  		<div style="float:right"><img src="print.png" title="������" style="cursor:pointer" class="noPrint" onclick="window.print()"></div>
+		</div>
+  </body>
+</html>

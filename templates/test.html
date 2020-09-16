@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>testportjquery</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<body>
+<div class="container">
+    <div class="content col-sm-12">
+        <br><br>
+        <h1>Asaka Bank</h1>
+        <br><br><br>
+        <form>
+            <div class="form-group">
+                <label for="{{ myform.summa.id_for_label }}">Summa</label>
+                <input type="text" class="form-control" id="{{ myform.summa.id_for_label }}" placeholder="Enter summa">
+            </div>
+            <div class="form-group">
+                <label for="{{ myform.case.id_for_label }}">Shaklni tanlang</label>
+                <select class="form-control" id="{{ myform.case.id_for_label }}">
+                    {% for i in cases %}
+                        <option value="{{ i.id }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="{{ myform.rate.id_for_label }}">Valyutani tanlang</label>
+                <select class="form-control" id="{{ myform.rate.id_for_label }}">
+                    {% for i in rates %}
+                        <option value="{{ i.id }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+{#            <div class="form-group">#}
+{#                <label for="{{ myform.total_sum.id_for_label }}">{{ myform.total_sum.html_name }}</label>#}
+{#                <input type="text" class="form-control" id="{{ myform.total_sum.id_for_label }}"#}
+{#                       placeholder="Enter case">#}
+{#            </div>#}
+            <input id="username" value="{{ user.id }}" hidden>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    //var csrftoken = getCookie('csrftoken');
+
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            }
+        });
+    });
+    $(function () {
+        $("#submit").on('click', function () {
+            data = {
+                'user': $('#username').val(),
+                'summa': $('#id_summa').val(),
+                'rate': $('#id_rate').val(),
+                'case': $('#id_case').val(),
+                'total_sum': $('#id_total_sum').val()
+
+            };
+            $.ajax({
+                url: '/exchange/',
+                method: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(data);
+                    console.log(xhr);
+                    console.log(thrownError);
+                    alert(xhr.responseText);
+                },
+                success: function () {
+                    alert("Успешно сохранено !");
+                    window.location.href = '/';
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>
