@@ -1,10 +1,236 @@
-<!DOCTYPE html>
+{% load static %}
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'admin/css' %}"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+    <title>Asaka Bank</title>
 </head>
-<body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/script1.js"></script>
+<script>
+    function setCookie(name, value) {
+        window.sessionStorage.setItem(name, value);
+    }
 
+    function getCookie(name) {
+        return window.sessionStorage.getItem(name);
+    }
+
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+
+    function summByMask(summ) {
+        var val = summ.replace(/ /g, "");
+        val = val.replace(",", ".");
+        var res = "", scale = "";
+        var i = val.indexOf('.');
+        if (i != -1) {
+            scale = val.substr(i);
+            val = val.substr(0, i);
+        }
+        var n = val.length;
+        for (i = 1; i <= n; i++) {
+            res = val.charAt(n - i) + res;
+            if (i % 3 == 0 && i < n)
+                res = " " + res;
+        }
+        return res + scale;
+    }
+
+    function get(id) {
+        return document.getElementById(id);
+    }
+
+    function getDate() {
+        var d = new Date();
+        var str = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+        return str;
+    }
+
+    function getKurs() {
+        return getCookie('xbkurs');
+    }
+
+    function setLoad() {
+        var kurs = getKurs();
+        if (kurs == undefined || kurs == null || kurs == 'null' || kurs == 0)
+            setKurs();
+        get('divTime').innerHTML = getDate();
+        get('kurs').innerHTML = getKurs() + ' UZS';
+        if (window.sessionStorage.getItem('filialName') && window.sessionStorage.getItem('punktNumber')) {
+            $("#filial__name").html(window.sessionStorage.getItem('filialName'));
+            $("#punkt__number").html(window.sessionStorage.getItem('punktNumber'));
+        }
+    }
+
+    function setSum(dom) {
+        var kurs = getKurs();
+        get('sumhidden').innerHTML = summByMask('' + Math.round(parseFloat(dom.value) / kurs * 100) / 100);
+        get('sumnumber').innerHTML = summByMask('' + Math.round(parseFloat(dom.value) / kurs * 100) / 100);
+    }
+
+    function setKurs() {
+        var kurs = prompt('Kursni kiriting: ');
+        try {
+            setCookie('xbkurs', kurs);
+            setLoad();
+            setSum(get('dollar'));
+        } catch (e) {
+            alert("������ ������� ����� ��������");
+        }
+    }
+
+    function getFilialName() {
+        var name = prompt('Filial nomini kiriting: ');
+        try {
+            setCookie('filialName', name);
+            setFilialName();
+        } catch (e) {
+            alert("Xatolik yuz berdi!!!");
+        }
+    }
+
+    function setFilialName() {
+        $("#filial__name").html(window.sessionStorage.getItem('filialName'));
+    }
+
+    function getPunktName() {
+        var punkt = prompt('Punkt raqamini kiriting: ');
+        try {
+            setCookie('punktNumber', punkt);
+            setPunktName();
+        } catch (e) {
+            alert("Xatolik yuz berdi!!!");
+        }
+    }
+
+    function setPunktName() {
+        $("#punkt__number").html(window.sessionStorage.getItem('punktNumber'));
+    }
+</script>
+<style>
+    @media print {
+        .noBorder {
+            border: 0
+        }
+
+        .noPrint {
+            display: none !important;
+        }
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="container">
+            <a class="navbar-brand" href="#">Asaka Bank</a>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'buy' %}">Valyuta Ayirboshlash <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'sell' %}">Valyuta Sotish</a>
+            </li>
+        </ul>
+                        <img class="ml-5 nav-link" src="../static/images/print.png" onclick="window.print()"/>
+        </div>
+
+        <!--        <form class="form-inline my-2 my-lg-0">-->
+        <!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+        <!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+        <!--        </form>-->
+    </div>
+</nav>
+
+<div class="container-xl">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div style="width:300px; text-align:center" class="m-2 border p-2">
+                <img class="center-block align-content-center m-2" src="../static/images/favicon.png" height="100"/>
+                <b class="center">ASAKA&nbsp;BANK</b>
+                <div class="row">
+                     <div class="col">
+                    <p class="p-2 text-left">09007-shakl</p>
+                    </div>
+                    <div class="col">
+                        <select class="custom-select form-control " name="statement_type" id="statement_type" onchange="access();">
+                    <option value="1"> 1 nusxa
+                    <option value="2"> 2 nusxa
+                </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Punkt:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">1</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Chek:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">№ 1</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Kurs:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">10350 UZS</p>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Berildi:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">10350 UZS</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Mijoz F.I.O</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Kassir F.I.O</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left"></p>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <p class="text-left pl-2">Mijoz imzosi</p>
+                <div class="dropdown-divider mt-5"></div>
+                <p class="text-left pl-2">Ayirboshlash shaxobchasi hodimlarining imzosi</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.js' %}"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
 </body>
 </html>
