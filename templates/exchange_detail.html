@@ -134,17 +134,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <div class="container">
-            <a class="navbar-brand" href="#">Asaka Bank</a>
+            <a class="navbar-brand" href="{% url 'main' %}">Asaka Bank</a>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'buy' %}">Valyuta Ayirboshlash <span
                             class="sr-only">(current)</span></a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="{% url 'sell' %}">Valyuta Sotish</a>-->
-<!--                </li>-->
             </ul>
-            <img class="ml-5 nav-link" src="../static/images/print.png" onclick="window.print()"/>
+            <img class="ml-5 nav-link" src="{% static '../static/images/print.png' %}" onclick="window.print()"/>
         </div>
 
         <!--        <form class="form-inline my-2 my-lg-0">-->

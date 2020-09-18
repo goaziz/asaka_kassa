@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>testportjquery</title>
+    <title>Valyuta Operatsiyasi</title>
 </head>
 {% load static %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -74,6 +74,7 @@
             {#                       placeholder="Enter case">#}
             {#            </div>#}
             <input id="username" value="{{ user.id }}" hidden>
+            <input id="detail_url" value="" hidden>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -128,9 +129,9 @@
                     console.log(thrownError);
                     alert(xhr.responseText);
                 },
-                success: function () {
-                    alert("Успешно сохранено !");
-                    {#window.location.href = '{% url 'exchange-detail' object.id %}';#}
+                success: function (response) {
+                    window.location.href = '{% url 'main' %}'
+                    console.log(response);
                 }
             })
         })
