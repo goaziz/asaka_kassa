@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
+from django.views.generic import DetailView
 
 from .serializers import ExchangeSerializer
 from .models import Exchange, CurrencyRate, Case
 from .forms import *
+
 
 
 def index(request):
@@ -22,7 +24,7 @@ class ExchangeCreateView(ListCreateAPIView):
 #        serializer.save(user=self.request.user)
 
 def sell_currency(request):
-    return render(request, 'sell.html', {})
+    return render(request, 'exchange_detail.html', {})
 
 def posterview(request):
     template_name = 'test.html'
@@ -35,3 +37,8 @@ def posterview(request):
         'cases': cases
     }
     return render(request, template_name, context)
+
+
+class ExchangeDetail(DetailView):
+    model = Exchange
+    template_name = 'exchange_detail.html'

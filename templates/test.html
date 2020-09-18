@@ -7,19 +7,48 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="{% url 'main' %}">Asaka Bank</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'buy' %}">Valyuta Ayirboshlash <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            {#            <li class="nav-item">#}
+            {#                <a class="nav-link" href="{% url 'sell' %}">Valyuta Sotish</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>#}
+            {#            </li>#}
+        </ul>
+        {#        <form class="form-inline my-2 my-lg-0">#}
+        {#            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+        {#            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+        {#        </form>#}
+    </div>
+</nav>
 <div class="container">
     <div class="content col-sm-12">
         <br><br>
         <h1>Asaka Bank</h1>
         <br><br><br>
+        <p>009002 -- Sotib Olish</p>
+        <p>000907 -- Sotish</p>
         <form>
             <div class="form-group">
                 <label for="{{ myform.summa.id_for_label }}">Summa</label>
-                <input type="text" class="form-control" id="{{ myform.summa.id_for_label }}" placeholder="Enter summa">
+                <input type="text" class="form-control" id="{{ myform.summa.id_for_label }}"
+                       placeholder="Summani kirting">
             </div>
             <div class="form-group">
                 <label for="{{ myform.case.id_for_label }}">Shaklni tanlang</label>
                 <select class="form-control" id="{{ myform.case.id_for_label }}">
+                    <option value=""></option>
                     {% for i in cases %}
                         <option value="{{ i.id }}">{{ i }}</option>
                     {% endfor %}
@@ -28,16 +57,22 @@
             <div class="form-group">
                 <label for="{{ myform.rate.id_for_label }}">Valyutani tanlang</label>
                 <select class="form-control" id="{{ myform.rate.id_for_label }}">
+                    <option value=""></option>
                     {% for i in rates %}
                         <option value="{{ i.id }}">{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-{#            <div class="form-group">#}
-{#                <label for="{{ myform.total_sum.id_for_label }}">{{ myform.total_sum.html_name }}</label>#}
-{#                <input type="text" class="form-control" id="{{ myform.total_sum.id_for_label }}"#}
-{#                       placeholder="Enter case">#}
-{#            </div>#}
+            <div class="form-group">
+                <label for="{{ myform.customer_name.id_for_label }}">Mijoz ismi va familiyasi</label>
+                <input type="text" class="form-control" id="{{ myform.customer_name.id_for_label }}"
+                       placeholder="Ism va familiyani kiriting">
+            </div>
+            {#            <div class="form-group">#}
+            {#                <label for="{{ myform.total_sum.id_for_label }}">{{ myform.total_sum.html_name }}</label>#}
+            {#                <input type="text" class="form-control" id="{{ myform.total_sum.id_for_label }}"#}
+            {#                       placeholder="Enter case">#}
+            {#            </div>#}
             <input id="username" value="{{ user.id }}" hidden>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -78,8 +113,8 @@
                 'summa': $('#id_summa').val(),
                 'rate': $('#id_rate').val(),
                 'case': $('#id_case').val(),
-                'total_sum': $('#id_total_sum').val()
-
+                'total_sum': $('#id_total_sum').val(),
+                'customer_name': $('#id_customer_name').val()
             };
             $.ajax({
                 url: '/exchange/',
@@ -95,7 +130,7 @@
                 },
                 success: function () {
                     alert("Успешно сохранено !");
-                    window.location.href = '/sell';
+                    {#window.location.href = '{% url 'exchange-detail' object.id %}';#}
                 }
             })
         })
