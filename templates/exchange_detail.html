@@ -140,9 +140,9 @@
                     <a class="nav-link" href="{% url 'buy' %}">Valyuta Ayirboshlash <span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'sell' %}">Valyuta Sotish</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="{% url 'sell' %}">Valyuta Sotish</a>-->
+<!--                </li>-->
             </ul>
             <img class="ml-5 nav-link" src="../static/images/print.png" onclick="window.print()"/>
         </div>
@@ -156,21 +156,23 @@
 
 <div class="container-xl">
     <div class="row">
-        <div class="col-md-6 offset-3">
-            <div style="width:300px; text-align:center" class="m-2 border p-2">
-                <img class="center-block align-content-center m-2" src="{% static '../static/images/favicon.png' %}"
-                     height="100"/>
+        <div class="col-6 offset-3">
+            <div class="m-2 border p-2">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img class="center-block align-content-center m-2"  src="{% static '../static/images/favicon.png' %}" height="100"/>
                 <b class="center">ASAKA&nbsp;BANK</b>
+                    </div>
+                </div>
                 {% if object.case_id == 1 %}
                     <div class="row">
                         <div class="col">
                             <p class="p-2 text-left">{{ object.case.code }}</p>
                         </div>
                         <div class="col">
-                            <select class="custom-select form-control " name="statement_type" id="statement_type"
-                                    onchange="access();">
-                                <option value="1"> 1 nusxa
-                                <option value="2"> 2 nusxa
+                            <select class="custom-select form-control " name="statement_type" id="statement_type" onchange="access();">
+                                <option value="1"> 1 nusxa</option>
+                                <option value="2"> 2 nusxa</option>
                             </select>
                         </div>
                     </div>
@@ -184,7 +186,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="form-control border-0 text-left">Chek:</p>
+                            <p class="form-control border-0 text-left">Chek raqami:</p>
                         </div>
                         <div class="col">
                             <p class="form-control border-0 text-left">{{ object.check }}</p>
@@ -209,10 +211,10 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.customer_name }}</p>
+                            <p class="form-control border-0 text-left">Mijoz F.I.O</p>
                         </div>
                         <div class="col">
-                            <p class="form-control border-0 text-left"></p>
+                            <p class="form-control border-0 text-left">{{ object.customer_name }}</p>
                         </div>
                     </div>
                 {% elif object.case_id == 2 %}
@@ -223,8 +225,8 @@
                         <div class="col">
                             <select class="custom-select form-control " name="statement_type" id="statement_type"
                                     onchange="access();">
-                                <option value="1"> 1 nusxa
-                                <option value="2"> 2 nusxa
+                                <option value="1"> 1 nusxa</option>
+                                <option value="2"> 2 nusxa</option>
                             </select>
                         </div>
                     </div>
