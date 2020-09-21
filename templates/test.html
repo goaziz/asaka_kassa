@@ -1,11 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Valyuta Operatsiyasi</title>
 </head>
-{% load static %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      crossorigin="anonymous">
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
@@ -39,7 +39,7 @@
         <br><br><br>
         <p>009002 -- Sotib Olish</p>
         <p>000907 -- Sotish</p>
-        <form>
+        <div>
             <div class="form-group">
                 <label for="{{ myform.summa.id_for_label }}">Summa</label>
                 <input type="text" class="form-control" id="{{ myform.summa.id_for_label }}"
@@ -76,7 +76,7 @@
             <input id="username" value="{{ user.id }}" hidden>
             <input id="detail_url" value="" hidden>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -130,8 +130,8 @@
                     alert(xhr.responseText);
                 },
                 success: function (response) {
-                    window.location.href = '{% url 'main' %}'
-                    console.log(response);
+                    console.log(response.id);
+                    window.location = '/detail/' + response.id;
                 }
             })
         })
