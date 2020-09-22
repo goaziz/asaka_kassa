@@ -164,7 +164,7 @@
                 {% if object.case_id == 1 %}
                     <div class="row">
                         <div class="col">
-                            <p class="p-2 text-left">{{ object.case.code }}</p>
+                            <p class="p-2 text-left">{{ object.case }}</p>
                         </div>
                         <div class="col">
                             <select class="custom-select form-control " name="statement_type" id="statement_type" onchange="access();">
@@ -217,7 +217,7 @@
                 {% elif object.case_id == 2 %}
                     <div class="row">
                         <div class="col">
-                            <p class="p-2 text-left">{{ object.case.code }}</p>
+                            <p class="p-2 text-left">{{ object.case }}</p>
                         </div>
                         <div class="col">
                             <select class="custom-select form-control " name="statement_type" id="statement_type"
@@ -260,32 +260,30 @@
                             <p class="form-control border-0 text-left">{{ object.total_sum }}</p>
                         </div>
                     </div>
-                    {% if object.summa > 100 %}
+                    {% if object.summa >= 100 %}
                         <div class="row">
                             <div class="col">
                                 <p class="form-control border-0 text-left">Mijoz F.I.O</p>
                             </div>
                             <div class="col">
-                                <p class="form-control border-0 text-left"></p>
+                                <p class="form-control border-0 text-left">{{ object.customer_name  }}</p>
                             </div>
                         </div>
                     {% endif %}
                 {% endif %}
-                <div class="row">
-                    <div class="col">
-                        <p class="form-control border-0 text-left">Kassir F.I.O</p>
-                    </div>
-                    <div class="col">
-                        <p class="form-control border-0 text-left"></p>
-                    </div>
-                </div>
                 <div class="dropdown-divider"></div>
+
+
+
+
+
+		<p class="text-center pl-2">Mijoz imzosi</p>
+		<p class="text-center pl-2">Ayirboshlash shaxobchasi hodimlarining imzosi</p>
                 {% if object.case_id == 2 and object.summa < 100 %}
-                    <p>Izoh <<-------------->></p>
+                    <i class="text-center pl-2"><small>Izoh:chet el valyutasining ekvivalenti 100 AQSH dollardan ko'p bo'lganda to'ldiriladi</small></i>
                 {% endif %}
-                <p class="text-left pl-2">Mijoz imzosi</p>
-                <div class="dropdown-divider mt-5"></div>
-                <p class="text-left pl-2">Ayirboshlash shaxobchasi hodimlarining imzosi</p>
+                
+                
             </div>
         </div>
     </div>
