@@ -95,6 +95,7 @@
             }
         });
     });
+
     $(function () {
         $("#submit").on('click', function () {
             data = {
@@ -125,25 +126,16 @@
         })
     })
 
-       // var def_translite = {
-       //     null: "no`l",
-       //     a1: ['bir', 'ikki', 'uch', 'to`rt', 'besh', 'olti', 'yetti', 'sakkiz', 'to`qqiz'],
-       //     a2: ['bir', 'ikki', 'uch', 'to`rt', 'besh', 'olti', 'yetti', 'sakkiz', 'to`qqiz'],
-       //     a10: ['o`n', 'o`n bir', 'o`n ikki', 'o`n uch', 'o`n to`rt', 'o`n besh', 'o`n olti', 'o`n yetti', 'o`n sakkiz', 'o`n to`qqiz'],
-       //     a20: ['yigirma', 'o`ttiz', 'qirq', 'ellik', 'oltmish', 'yetmish', 'sakson', 'to`qson'],
-       //     a100: ['bir yuz', 'ikki yuz', 'uch yuz', 'to`rt yuz', 'besh yuz', 'olti yuz', 'yetti yuz', 'sakkiz yuz', 'to`qqiz yuz'],
-       //     uc: ['tiyin', 'tiyin', 'tiyin'],
-       //     ur: ['sum', 'sum', 'sum'],
-       //     u3: ['ming', 'ming', 'ming'],
-       //     u2: ['million', 'million', 'million'],
-       //     u1: ['milliard', 'milliard', 'milliard'],
-       // }
-
     var money;
+
     var price;
+
     var rub, kop;
+
     var litera = sotny = desatky = edinicy = minus = "";
+
     var k = 0, i, j;
+
     N = ["", "bir", "ikki", "uch", "to'rt", "besh", "olti", "yetti", "sakkiz", "to'qqiz",
         "", "o'n bir", "o'n ikki", "o'n uch", "o'n to'rt", "o'n besh", "o'n olti", "o'n yetti", "o'n sakkiz", "o'n to'qqiz",
         "", "o'n", "yigirma", "o'ttiz", "qiriq", "ellik", "oltmish", "yetmish", "sakson", "to'qson",
@@ -151,13 +143,16 @@
         "ming", "ming", "ming", "ming", "ming", "ming", "ming", "ming", "ming", "ming",
         "million", "million", "million", "million", "million", "million", "million", "million", "million", "million",
         "milliard", "milliard", "milliard", "milliard", "milliard", "milliard", "milliard", "milliard", "milliard", "milliard"];
+
     var M = new Array(10);
+
     for (j = 0; j < 10; ++j)
         M[j] = new Array(N.length);
     for (i = 0; i < N.length; i++)
         for (j = 0; j < 10; j++)
             M[j][i] = N[k++]
     var R = ["so'm", "so'm", "so'm", "so'm", "so'm", "so'm", "so'm", "so'm", "so'm", "so'm"];
+
     var K = ["tiyn", "tiyn", "tiyn", "tiyn", "tiyn", "tiyn", "tiyn", "tiyn", "tiyn", "tiyn"];
 
     function num2str(money, target) {
