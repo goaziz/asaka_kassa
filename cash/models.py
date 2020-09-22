@@ -26,6 +26,7 @@ class Case(models.Model):
 class Exchange(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     summa = models.DecimalField(max_digits=200, decimal_places=2)
+    sum_in_word = models.CharField(max_length=500, blank=True, null=True)
     rate = models.ForeignKey(CurrencyRate, on_delete=models.DO_NOTHING)
     case = models.ForeignKey(Case, on_delete=models.DO_NOTHING)
     check = models.CharField(max_length=250, blank=True, null=True)
