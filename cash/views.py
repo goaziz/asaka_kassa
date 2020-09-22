@@ -33,7 +33,7 @@ class ExchangeCreateView(ListCreateAPIView):
 def posterview(request):
     template_name = 'test.html'
     myform = Myform(request.POST or None)
-    rates = CurrencyRate.objects.all()
+    rates = CurrencyRate.objects.all().order_by('id')
     cases = Case.objects.all()
     context = {
         'myform': myform,
