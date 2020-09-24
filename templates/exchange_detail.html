@@ -12,7 +12,9 @@
     <title>Asaka Bank</title>
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-{#<script type="text/javascript" src="js/script1.js"></script>#}
+
+<script type="text/javascript" src="js/script1.js"></script>
+
 <script>
     function setCookie(name, value) {
         window.sessionStorage.setItem(name, value);
@@ -117,12 +119,12 @@
 </script>
 <style>
     @media print {
-        .noBorder {
-            border: 0
-        }
-
-        .noPrint {
-            display: none !important;
+        .print {
+            border: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0!important;
+            margin: 0!important;
         }
     }
 </style>
@@ -144,146 +146,153 @@
             <img class="ml-5 nav-link" src="{% static '../static/images/print.png' %}" onclick="window.print()"/>
         </div>
 
-        <!--        <form class="form-inline my-2 my-lg-0">-->
-        <!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-        <!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-        <!--        </form>-->
     </div>
 </nav>
 
 <div class="container-xl">
     <div class="row">
         <div class="col-6 offset-3">
-            <div class="m-2 border p-2">
+            <div class="m-2 border p-2 print">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <img class="center-block align-content-center m-2"  src="{% static '../static/images/favicon.png' %}" height="100"/>
-                <b class="center">ASAKA&nbsp;BANK</b>
+                        <img class="center-block align-content-center m-2"
+                             src="{% static '../static/images/favicon.png' %}" height="100"/>
+                        <b class="center">ASAKA&nbsp;BANK</b>
                     </div>
                 </div>
                 {% if object.case_id == 1 %}
-                    <div class="row">
-                        <div class="col">
-                            <p class="p-2 text-left">{{ object.case }}</p>
-                        </div>
-                        <div class="col">
-                            <select class="custom-select form-control " name="statement_type" id="statement_type" onchange="access();">
-                                <option value="1"> 1 nusxa</option>
-                                <option value="2"> 2 nusxa</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="p-2 text-left">{{ object.case }}</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Punkt:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.user }}</p>
-                        </div>
+                    <div class="col">
+                        <select class="custom-select form-control " name="statement_type" id="statement_type"
+                                onchange="access();">
+                            <option value="1"> 1 nusxa</option>
+                            <option value="2"> 2 nusxa</option>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Chek raqami:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.check }}</p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Punkt:</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Kurs:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.rate.name }}
-                                - {{ object.rate.buy_rate }} UZS</p>
-                        </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.user }}</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Qabul qilindi:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.total_sum }}</p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Chek raqami:</p>
                     </div>
-{#                    <div class="row">#}
-{#                        <div class="col">#}
-{#                            <p class="form-control border-0 text-left">Mijoz F.I.O</p>#}
-{#                        </div>#}
-{#                        <div class="col">#}
-{#                            <p class="form-control border-0 text-left">{{ object.customer_name }}</p>#}
-{#                        </div>#}
-{#                    </div>#}
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.check }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Kurs:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.rate.name }}
+                            - {{ object.rate.buy_rate }} UZS</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Qabul qilindi:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.total_sum }}</p>
+                    </div>
+                </div>
+                <!--                {#-->
+                <!--                <div class="row">#}-->
+                <!--                    {#-->
+                <!--                    <div class="col">#}-->
+                <!--                        {# <p class="form-control border-0 text-left">Mijoz F.I.O</p>#}-->
+                <!--                        {#-->
+                <!--                    </div>-->
+                <!--                    #}-->
+                <!--                    {#-->
+                <!--                    <div class="col">#}-->
+                <!--                        {# <p class="form-control border-0 text-left">{{ object.customer_name }}</p>#}-->
+                <!--                        {#-->
+                <!--                    </div>-->
+                <!--                    #}-->
+                <!--                    {#-->
+                <!--                </div>-->
+                <!--                #}-->
                 {% elif object.case_id == 2 %}
-                    <div class="row">
-                        <div class="col">
-                            <p class="p-2 text-left">{{ object.case }}</p>
-                        </div>
-                        <div class="col">
-                            <select class="custom-select form-control " name="statement_type" id="statement_type"
-                                    onchange="access();">
-                                <option value="1"> 1 nusxa</option>
-                                <option value="2"> 2 nusxa</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="p-2 text-left">{{ object.case }}</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Punkt:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.user }}</p>
-                        </div>
+                    <div class="col">
+                        <select class="custom-select form-control " name="statement_type" id="statement_type"
+                                onchange="access();">
+                            <option value="1"> 1 nusxa</option>
+                            <option value="2"> 2 nusxa</option>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Chek:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.check }}</p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Punkt:</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Kurs:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.rate.name }}
-                                - {{ object.rate.sell_rate }}</p>
-                        </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.user }}</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="form-control border-0 text-left">Berildi:</p>
-                        </div>
-                        <div class="col">
-                            <p class="form-control border-0 text-left">{{ object.total_sum }}</p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Chek:</p>
                     </div>
-                    {% if object.summa >= 100 %}
-                        <div class="row">
-                            <div class="col">
-                                <p class="form-control border-0 text-left">Mijoz F.I.O</p>
-                            </div>
-                            <div class="col">
-                                <p class="form-control border-0 text-left">{{ object.customer_name  }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.check }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Kurs:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.rate.name }}
+                            - {{ object.rate.sell_rate }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Berildi:</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.total_sum }}</p>
+                    </div>
+                </div>
+                {% if object.summa >= 100 %}
+                <div class="row">
+                    <div class="col">
+                        <p class="form-control border-0 text-left">Mijoz F.I.O</p>
+                    </div>
+                    <div class="col">
+                        <p class="form-control border-0 text-left">{{ object.customer_name }}</p>
+                    </div>
+                </div>
                 {% endif %}
+                {% endif %}
+                  <br>
                 <div class="dropdown-divider"></div>
 
-
-
-
-
-		<p class="text-center pl-2">Mijoz imzosi</p>
-		<p class="text-center pl-2">Ayirboshlash shaxobchasi hodimlarining imzosi</p>
+                <p class="pl-2">Mijoz imzosi</p>
+                <br>
+                <div class="dropdown-divider"></div>
+                <p class="pl-2">Ayirboshlash shaxobchasi hodimlarining imzosi</p>
                 {% if object.case_id == 2 and object.summa < 100 %}
-                    <i class="text-center pl-2"><small>Izoh:chet el valyutasining ekvivalenti 100 AQSH dollardan ko'p bo'lganda to'ldiriladi</small></i>
+                <i class="text-center pl-2"><small>Izoh:chet el valyutasining ekvivalenti 100 AQSH dollardan ko'p
+                    bo'lganda to'ldiriladi</small></i>
                 {% endif %}
-                
-                
+
+
             </div>
         </div>
     </div>
