@@ -41,17 +41,17 @@ class Exchange(models.Model):
         return reverse('exchange-detail', kwargs={'pk': self.pk})
 
 
-def check_save(instance, sender, **kwargs):
-    if kwargs['created']:
-        case = instance.case
-        rate = instance.rate
-        if case.id == 1:
-            instance.total_sum = instance.summa * rate.buy_rate
-            instance.check = 'A - 0' + str(instance.id)
-        elif case.id == 2:
-            instance.total_sum = instance.summa * rate.sell_rate
-            instance.check = 'B - 0' + str(instance.id)
-        instance.save()
-
-
-post_save.connect(receiver=check_save, sender=Exchange)
+# def check_save(instance, sender, **kwargs):
+#     if kwargs['created']:
+#         case = instance.case
+#         rate = instance.rate
+#         if case.id == 1:
+#             instance.total_sum = instance.summa * rate.buy_rate
+#             instance.check = 'A - 0' + str(instance.id)
+#         elif case.id == 2:
+#             instance.total_sum = instance.summa * rate.sell_rate
+#             instance.check = 'B - 0' + str(instance.id)
+#         instance.save()
+#
+#
+# post_save.connect(receiver=check_save, sender=Exchange)
