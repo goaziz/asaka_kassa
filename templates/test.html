@@ -65,6 +65,11 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="{{ myform.chek.id_for_label }}">Chek raqami</label>
+                <input type="text" class="form-control" id="{{ myform.check.id_for_label }}"
+                       placeholder="Chek raqamini kiriting">
+            </div>
+            <div class="form-group">
                 <label for="{{ myform.customer_name.id_for_label }}">Mijoz ismi va familiyasi</label>
                 <input type="text" class="form-control" id="{{ myform.customer_name.id_for_label }}"
                        placeholder="Ism va familiyani kiriting">
@@ -113,7 +118,8 @@
                 'case': $('#id_case').val(),
                 'total_sum': $('#id_total_sum').val(),
                 'customer_name': $('#id_customer_name').val(),
-                'sum_in_word': $('#str').val(),
+                'chek': $('#id_chek').val(),
+                'sum_in_word': $('#str').val()
             };
             $.ajax({
                 url: '/exchange/',
