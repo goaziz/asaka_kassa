@@ -118,14 +118,19 @@
     }
 </script>
 <style>
-    @media print {
-        .print {
-            border: 0;
-            width: 100%;
-            height: 100%;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
+    @page :left {
+        margin: 0.5cm;
+    }
+    @page :right {
+        margin: 0.6cm;
+    }
+    @page: top {
+        margin: 10cm;
+    }
+
+    @page {
+        page-break-before: always;
+        size: 10cm 45cm;
     }
 
     @page {
@@ -156,8 +161,7 @@
 
 <div class="container-xl">
     <div class="row">
-        <div class="col-6 offset-3">
-            <div class="m-2 border p-2 print">
+            <div class="m-2 border p-2 print" id="printbox" style="width: 125mm;">
                 <div class="row">
                     <div class="col-12 text-center">
                         <img class="center-block align-content-center m-2"
@@ -328,12 +332,8 @@
                     <i class="text-center pl-2"><small>Izoh:chet el valyutasining ekvivalenti 100 AQSH dollardan ko'p
                         bo'lganda to'ldiriladi</small></i>
                 {% endif %}
-
-
             </div>
-        </div>
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'js/bootstrap.js' %}"
